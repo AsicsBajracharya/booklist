@@ -79,15 +79,15 @@ function App() {
   function deleteItem(event, node){
     event.stopPropagation()
     //find all children items to delete
-    console.log(node.NodeText)
-    const remainintItems = data.filter(el => el.ServiceHeaderBlockId !== node.ServiceHeaderBlockId)
-    setData(remainintItems)
+    // console.log(node.NodeText)
+    // const remainintItems = data.filter(el => el.ServiceHeaderBlockId !== node.ServiceHeaderBlockId)
+    // setData(remainintItems)
   }
 
   function openNotification(placement){
     notification.open({
       icon: <CheckCircleOutlined />,
-      message: `Success ${placement}`,
+      message: `Success`,
       description:'New service header block has been added successfully',
       placement,
       duration: 2,
@@ -126,25 +126,8 @@ function App() {
                  <PlusSquareOutlined />
               </span>
            </Tooltip>
-          
-
             ]
           } 
-         
-          // extra={[
-          //   <Tooltip placement="right" title="Add Service Block Element" color="#fff" overlayInnerStyle={{color: '#34aeeb', fontSize: '15px', fontWeight:'700'}}>
-          //      <span onClick={(event) => addItem(event, item)}>
-          //         <PlusSquareOutlined />
-          //      </span>
-          //   </Tooltip>
-          //  ,     
-          //  <Tooltip placement="right" title="Delete Service Block Element" color="#fff" overlayInnerStyle={{color: '#ff772e', fontSize: '15px', fontWeight:'700'}}>
-          //    <span onClick={(event) => deleteItem(event, item)}>
-          //     <DeleteOutlined style={{color: 'red', marginLeft: '12px'}}/>
-          //    </span>
-          //   </Tooltip>
-          // ]
-          // }
         >
           {item.children && renderData(item.children)}
         </Panel>
@@ -179,7 +162,7 @@ function App() {
       <Header />
 
       {formattedData && renderData(formattedData)}
-
+      
       <AddBooklistModal visible={isModalVisible} hide={() => setIsModalVisible(false)} parentNode={currentNode} appendNode={(nodeData) => appendNode(nodeData)} />
     </>
   )

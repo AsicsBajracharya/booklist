@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Modal, Button, Input, Checkbox, Select } from "antd"
+import { Modal, Button, Input, Checkbox, Select, Typography } from "antd"
 
 const resourceDescriptionList = [
   {
@@ -23,11 +23,16 @@ const resourceDescriptionList = [
 
 function AddBooklistModal({ visible, hide, parentNode, appendNode }) {
   const {Option} = Select
+  const {Text} = Typography
   const [headerBlock, setHeaderBlock] = useState("")
-  // const [nodeText, setNodeText] = useState("")
+  const [error, setError] = useState("")
   const [serviceBlock, setServiceBlock] = useState(false)
   const [resourceDescriptionId, setResourceDescriptionId] = useState(null)
   function handleOk() {
+    if(!headerBlock){
+      setError('Please fill in this field')
+      return
+    }
     appendNode({
       ServiceHeaderBlockTitle: headerBlock,
       NodeLevel: parentNode.NodeLevel + 1,
@@ -40,6 +45,16 @@ function AddBooklistModal({ visible, hide, parentNode, appendNode }) {
     hide()
   }
 
+  useEffect(() =>{
+    setError(null)
+    setHeaderBlock('')
+  },[visible])
+
+  useEffect(() =>{
+    setError(null)
+    
+  },[headerBlock])
+
   function handleSelect(value){
     console.log(`selected ${value}`);
     setResourceDescriptionId(value)
@@ -51,6 +66,7 @@ function AddBooklistModal({ visible, hide, parentNode, appendNode }) {
         <p>Parent Node: {parentNode?.ServiceHeaderBlockTitle}</p>
         <p>Enter service header block *</p>
         <Input placeholder="Block Level 1" onChange={(e) => setHeaderBlock(e.target.value)} value = {headerBlock} />
+        <Text type = "danger">{error}</Text> 
         <span>
           <p>Is service block</p>
         </span>{" "}
