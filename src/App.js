@@ -46,9 +46,12 @@ function App() {
                   return
                 } else {
                   let index = parseInt(h) - 1
-                  parent = parent.children[index]
+                  parent = parent?.children[index]
                 }
               })
+              if (typeof parent === "undefined") {
+                return
+              }
               if (typeof parent.children === "undefined") {
                 parent.children = []
               }
@@ -80,8 +83,8 @@ function App() {
     event.stopPropagation()
     //find all children items to delete
     // console.log(node.NodeText)
-    // const remainintItems = data.filter(el => el.ServiceHeaderBlockId !== node.ServiceHeaderBlockId)
-    // setData(remainintItems)
+    const remainintItems = data.filter(el => el.ServiceHeaderBlockId !== node.ServiceHeaderBlockId)
+    setData(remainintItems)
   }
 
   function openNotification(placement){
